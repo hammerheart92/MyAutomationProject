@@ -2,7 +2,6 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 import pages.CompleteWebFormPage;
 import pages.ElementsPage;
@@ -25,7 +24,10 @@ public class CompleteWebFormTest {
         elementsPage.clickCompleteWebForm();
 
         CompleteWebFormPage completeWebFormPage = new CompleteWebFormPage(driver);
-        completeWebFormPage.clickCompleteWebForm("Apaczai", "Laszlo", "Automation Testing", "High School", "Male", "2");
+        completeWebFormPage.clickCompleteWebForm("Apaczai", "Laszlo", "Automation Testing", "High School",
+                "Male", "5-9", "Feb","19", "2011");
 
+        driver.quit();
     }
+
 }

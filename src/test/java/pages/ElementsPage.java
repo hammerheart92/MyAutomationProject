@@ -31,5 +31,4 @@ public class ElementsPage {
         elementMethods.clickElement(completeWebFormMenuElement);
     }
 
-
 }

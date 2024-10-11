@@ -1,12 +1,10 @@
 package pages;
 
 import helpMethods.ElementMethods;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 public class CompleteWebFormPage {
 
@@ -41,15 +39,25 @@ public class CompleteWebFormPage {
     public WebElement preferNotToSayElement;
     @FindBy(id = "select-menu")
     public WebElement yearsOfExperienceElement;
+    @FindBy(id = "datepicker")
+    public WebElement dateElement;
+    @FindBy(linkText = "Submit")
+    public WebElement submitElement;
 
-    public void clickCompleteWebForm(String firstNameValue, String lastNameValue, String jobTitleValue, String educationLevel, String sex, String educationValue) {
+    public void clickCompleteWebForm(String firstNameValue, String lastNameValue, String jobTitleValue, String educationLevel, String sex,
+                                     String yearsOfExperienceValue, String monthSelectValue, String dayValue, String yearValue) {
         elementMethods.clickElement(completeWebFormMenuElement);
         elementMethods.fillElement(firstNameElement, firstNameValue);
         elementMethods.fillElement(lastNameElement, lastNameValue);
         elementMethods.fillElement(jobTitleElement, jobTitleValue);
         selectEducationLevel(educationLevel);
         selectSex(sex);
-        elementMethods.clickElement(yearsOfExperienceElement);
+        elementMethods.selectDropdownElement(yearsOfExperienceElement, yearsOfExperienceValue);
+
+        // Send the date value directly to the date input field in the format MM/DD/YYYY
+        String fullDate = monthSelectValue + "/" + dayValue + "/" + yearValue;
+        elementMethods.fillElement(dateElement, fullDate); // Input the date in the field
+        elementMethods.clickElement(submitElement);
 
     }
 
@@ -82,14 +90,7 @@ public class CompleteWebFormPage {
                 break;
             default:
                 System.out.println("Invalid education level: " + sex);
-
         }
-
-    }
-
-    public void selectYearsOfExperience(String value) {
-        Select select = new Select(yearsOfExperienceElement);
-        select.selectByValue(value);  // Selectează după valoare (atributul value din <option>)
     }
 }
 
