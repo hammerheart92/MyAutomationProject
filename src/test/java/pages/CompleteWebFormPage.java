@@ -1,95 +1,100 @@
 package pages;
 
-import helpMethods.ElementMethods;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class CompleteWebFormPage {
-
-    public WebDriver driver;
-    public ElementMethods elementMethods;
+public class CompleteWebFormPage extends BasePage {
 
     public CompleteWebFormPage(WebDriver driver) {
-        this.driver = driver;
-        elementMethods = new ElementMethods(this.driver);
-        PageFactory.initElements(this.driver, this);
+        super(driver);
     }
 
-    @FindBy(linkText = "Complete Web Form")
-    public WebElement completeWebFormMenuElement;
     @FindBy(id = "first-name")
-    public WebElement firstNameElement;
+    private WebElement firstNameElement;
     @FindBy(id = "last-name")
-    public WebElement lastNameElement;
+    private WebElement lastNameElement;
     @FindBy(id = "job-title")
-    public WebElement jobTitleElement;
+    private WebElement jobTitleElement;
     @FindBy(id = "radio-button-1")
-    public WebElement highSchoolElement;
+    private WebElement highSchoolElement;
     @FindBy(id = "radio-button-2")
-    public WebElement collegeElement;
+    private WebElement collegeElement;
     @FindBy(id = "radio-button-3")
-    public WebElement gradSchoolElement;
+    private WebElement gradSchoolElement;
     @FindBy(id = "checkbox-1")
-    public WebElement maleElement;
+    private WebElement maleElement;
     @FindBy(id = "checkbox-2")
-    public WebElement femaleElement;
+    private WebElement femaleElement;
     @FindBy(id = "checkbox-3")
-    public WebElement preferNotToSayElement;
+    private WebElement preferNotToSayElement;
     @FindBy(id = "select-menu")
-    public WebElement yearsOfExperienceElement;
+    private WebElement yearsOfExperienceElement;
     @FindBy(id = "datepicker")
-    public WebElement dateElement;
+    private WebElement dateElement;
     @FindBy(linkText = "Submit")
-    public WebElement submitElement;
+    private WebElement submitElement;
 
     public void clickCompleteWebForm(String firstNameValue, String lastNameValue, String jobTitleValue, String educationLevel, String sex,
                                      String yearsOfExperienceValue, String monthSelectValue, String dayValue, String yearValue) {
-        elementMethods.clickElement(completeWebFormMenuElement);
+
         elementMethods.fillElement(firstNameElement, firstNameValue);
+        loggerUtility.infoLog("The user fills the First name field with " + firstNameValue + " value");
         elementMethods.fillElement(lastNameElement, lastNameValue);
+        loggerUtility.infoLog("The user fills the Last name field with " + lastNameValue + " value");
         elementMethods.fillElement(jobTitleElement, jobTitleValue);
+        loggerUtility.infoLog("The user fills the Job title field with " + jobTitleValue + " value");
         selectEducationLevel(educationLevel);
         selectSex(sex);
         elementMethods.selectDropdownElement(yearsOfExperienceElement, yearsOfExperienceValue);
+        loggerUtility.infoLog("The user selects his Years of experience from the option list " + yearsOfExperienceValue + " value");
 
         // Send the date value directly to the date input field in the format MM/DD/YYYY
         String fullDate = monthSelectValue + "/" + dayValue + "/" + yearValue;
         elementMethods.fillElement(dateElement, fullDate); // Input the date in the field
+        loggerUtility.infoLog("The user selects the Date from the option list");
         elementMethods.clickElement(submitElement);
+        loggerUtility.infoLog("The user Submits the form ");
 
     }
 
     public void selectEducationLevel(String educationLevel) {
+        loggerUtility.infoLog("Selecting education level: " + educationLevel);
         switch (educationLevel.toLowerCase()) {
             case "high school":
                 elementMethods.clickElement(highSchoolElement);
+                loggerUtility.infoLog("Selected High School.");
                 break;
             case "college":
                 elementMethods.clickElement(collegeElement);
+                loggerUtility.infoLog("Selected Collage.");
                 break;
             case "grad school":
                 elementMethods.clickElement(gradSchoolElement);
+                loggerUtility.infoLog("Selected Grad School.");
                 break;
             default:
-                System.out.println("Invalid education level: " + educationLevel);
+                loggerUtility.errorLog("Invalid education level: " + educationLevel);
         }
     }
 
     public void selectSex(String sex){
+        loggerUtility.infoLog("Selecting sex: " + sex);
         switch (sex.toLowerCase()){
             case "male":
                 elementMethods.clickElement(maleElement);
+                loggerUtility.infoLog("Selected Male.");
                 break;
             case "female":
                 elementMethods.clickElement(femaleElement);
+                loggerUtility.infoLog("Selected Female.");
                 break;
             case "prefer not to say":
                 elementMethods.clickElement(preferNotToSayElement);
+                loggerUtility.infoLog("Selected Prefer Not to Say.");
                 break;
             default:
-                System.out.println("Invalid education level: " + sex);
+                loggerUtility.errorLog("Invalid sex option: " + sex);
         }
     }
 }

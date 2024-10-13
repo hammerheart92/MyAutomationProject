@@ -1,20 +1,28 @@
 package pages;
 
-import helpMethods.ElementMethods;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
-    public WebDriver driver;
-    public ElementMethods elementMethods;
+    @FindBy(linkText = "Autocomplete")
+    private WebElement autocompleteMenu;
+    @FindBy(linkText = "Complete Web Form")
+    private WebElement completeWebFormMenu;
 
     public HomePage(WebDriver driver) {
-        this.driver = driver;
-        elementMethods = new ElementMethods(this.driver);
-        PageFactory.initElements(this.driver,this);
-
+        super(driver);
     }
+
+    public void clickAutocomplete() {
+        elementMethods.clickElement(autocompleteMenu);
+        loggerUtility.infoLog("The user click on Autocomplete menu");
+    }
+
+    public void clickCompleteWebForm() {
+        elementMethods.clickElement(completeWebFormMenu);
+        loggerUtility.infoLog("The user click on Complete Web Form menu ");
+    }
+
 }
