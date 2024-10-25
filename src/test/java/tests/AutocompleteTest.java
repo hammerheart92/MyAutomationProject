@@ -10,7 +10,6 @@ public class AutocompleteTest extends Hooks {
     @Test
     public void testMethod() {
 
-        //continue json and data driven
         String addressValue = "Nr.9";
         String streetValue = "Ciucas Alley";
         String street2Value = "Ap.6";

@@ -1,5 +1,6 @@
 package pages;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,7 @@ public class AutocompletePage extends BasePage {
 
     public void clickAutocomplete(String addressValue, String streetValue, String street2Value, String cityValue,
                                   String stateValue, String zipCodeValue, String countryValue) {
+
 
         elementMethods.fillElement(addressElement, addressValue);
         loggerUtility.infoLog("The user fills the Address field with " + addressValue + " value");
