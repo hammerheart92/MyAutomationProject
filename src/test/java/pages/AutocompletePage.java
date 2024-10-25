@@ -1,6 +1,7 @@
 package pages;
 
 
+import modelObject.AutocompleteModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,24 +27,23 @@ public class AutocompletePage extends BasePage {
     @FindBy(id = "country")
     private WebElement countryElement;
 
-    public void clickAutocomplete(String addressValue, String streetValue, String street2Value, String cityValue,
-                                  String stateValue, String zipCodeValue, String countryValue) {
+    public void fillProcess(AutocompleteModel testData) {
 
 
-        elementMethods.fillElement(addressElement, addressValue);
-        loggerUtility.infoLog("The user fills the Address field with " + addressValue + " value");
-        elementMethods.fillElement(streetAddressElement, streetValue);
-        loggerUtility.infoLog("The user fills the Street address field with " + streetValue + " value");
-        elementMethods.fillElement(streetAddress2Element, street2Value);
-        loggerUtility.infoLog("The user fills the Street address 2 field with " + street2Value + " value");
-        elementMethods.fillElement(cityElement, cityValue);
-        loggerUtility.infoLog("The user fills the City field with " + cityValue + " value");
-        elementMethods.fillElement(stateElement, stateValue);
-        loggerUtility.infoLog("The user fills the State field with " + stateValue + " value");
-        elementMethods.fillElement(zipCodeElement, zipCodeValue);
-        loggerUtility.infoLog("The user fills the Zip Code field with " + zipCodeValue + " value");
-        elementMethods.fillElement(countryElement, countryValue);
-        loggerUtility.infoLog("The user fills the Country field with " + countryValue + " value");
+        elementMethods.fillElement(addressElement, testData.getAddressValue());
+        loggerUtility.infoLog("The user fills the Address field with " + testData.getAddressValue() + " value");
+        elementMethods.fillElement(streetAddressElement, testData.getStreetValue());
+        loggerUtility.infoLog("The user fills the Street address field with " + testData.getStreetValue() + " value");
+        elementMethods.fillElement(streetAddress2Element, testData.getStreet2Value());
+        loggerUtility.infoLog("The user fills the Street address 2 field with " + testData.getStreet2Value() + " value");
+        elementMethods.fillElement(cityElement, testData.getCityValue());
+        loggerUtility.infoLog("The user fills the City field with " + testData.getCityValue() + " value");
+        elementMethods.fillElement(stateElement, testData.getStateValue());
+        loggerUtility.infoLog("The user fills the State field with " + testData.getStateValue() + " value");
+        elementMethods.fillElement(zipCodeElement, testData.getZipCodeValue());
+        loggerUtility.infoLog("The user fills the Zip Code field with " + testData.getZipCodeValue() + " value");
+        elementMethods.fillElement(countryElement, testData.getCountryValue());
+        loggerUtility.infoLog("The user fills the Country field with " + testData.getCountryValue() + " value");
     }
 }
 
