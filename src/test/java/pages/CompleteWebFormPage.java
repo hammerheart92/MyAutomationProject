@@ -1,5 +1,6 @@
 package pages;
 
+import modelObject.CompleteWebFormModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,22 +36,21 @@ public class CompleteWebFormPage extends BasePage {
     @FindBy(linkText = "Submit")
     private WebElement submitElement;
 
-    public void clickCompleteWebForm(String firstNameValue, String lastNameValue, String jobTitleValue, String educationLevel, String sex,
-                                     String yearsOfExperienceValue, String monthSelectValue, String dayValue, String yearValue) {
+    public void clickCompleteWebForm(CompleteWebFormModel testData) {
 
-        elementMethods.fillElement(firstNameElement, firstNameValue);
-        loggerUtility.infoLog("The user fills the First name field with " + firstNameValue + " value");
-        elementMethods.fillElement(lastNameElement, lastNameValue);
-        loggerUtility.infoLog("The user fills the Last name field with " + lastNameValue + " value");
-        elementMethods.fillElement(jobTitleElement, jobTitleValue);
-        loggerUtility.infoLog("The user fills the Job title field with " + jobTitleValue + " value");
-        selectEducationLevel(educationLevel);
-        selectSex(sex);
-        elementMethods.selectDropdownElement(yearsOfExperienceElement, yearsOfExperienceValue);
-        loggerUtility.infoLog("The user selects his Years of experience from the option list " + yearsOfExperienceValue + " value");
+        elementMethods.fillElement(firstNameElement, testData.getFirstName());
+        loggerUtility.infoLog("The user fills the First name field with " + testData.getFirstName() + " value");
+        elementMethods.fillElement(lastNameElement, testData.getLastName());
+        loggerUtility.infoLog("The user fills the Last name field with " + testData.getLastName() + " value");
+        elementMethods.fillElement(jobTitleElement, testData.getJobTitle());
+        loggerUtility.infoLog("The user fills the Job title field with " + testData.getJobTitle() + " value");
+        selectEducationLevel(testData.getEducationLevel());
+        selectSex(testData.getSex());
+        elementMethods.selectDropdownElement(yearsOfExperienceElement, testData.getYearsOfExperience());
+        loggerUtility.infoLog("The user selects his Years of experience from the option list " + testData.getYearsOfExperience() + " value");
 
         // Send the date value directly to the date input field in the format MM/DD/YYYY
-        String fullDate = monthSelectValue + "/" + dayValue + "/" + yearValue;
+        String fullDate = testData.getMonth() + "/" + testData.getDay() + "/" + testData.getYear();
         elementMethods.fillElement(dateElement, fullDate); // Input the date in the field
         loggerUtility.infoLog("The user selects the Date from the option list");
         elementMethods.clickElement(submitElement);
