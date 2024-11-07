@@ -21,9 +21,9 @@ public class AutocompleteTest extends Hooks {
         loggerUtility.infoLog("Filling out Autocomplete with provided data");
         AutocompletePage autocompletePage = new AutocompletePage(getDriver());
         autocompletePage.fillProcess(testData);
+        autocompletePage.validateFilledFields(testData);
 
         loggerUtility.infoLog("Test completed successfully, quitting the driver.");
         getDriver().quit();
-
     }
 }
