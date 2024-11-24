@@ -23,6 +23,8 @@ public class CompleteWebFormTest extends Hooks {
         loggerUtility.infoLog("Filling out Complete Web Form with provided data");
         CompleteWebFormPage completeWebFormPage = new CompleteWebFormPage(getDriver());
         completeWebFormPage.clickCompleteWebForm(testData);
+        completeWebFormPage.validateFilledFields(testData);
+        //Asserts failed need to fix
 
         loggerUtility.infoLog("Test completed successfully, quitting the driver.");
         getDriver().quit();

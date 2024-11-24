@@ -12,6 +12,8 @@ public class HomePage extends BasePage {
     private WebElement completeWebFormMenu;
     @FindBy(linkText = "File Upload")
     private WebElement fileUploadMenu;
+    @FindBy(linkText = "Switch Window")
+    private WebElement switchWindowMenu;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -30,5 +32,10 @@ public class HomePage extends BasePage {
     public void clickFileUpload(){
         elementMethods.clickElement(fileUploadMenu);
         loggerUtility.infoLog("The user click on File Upload menu ");
+    }
+
+    public void  clickSwitchWindow(){
+        elementMethods.clickElement(switchWindowMenu);
+        loggerUtility.infoLog("The user clicks on Switch Windows menu");
     }
 }

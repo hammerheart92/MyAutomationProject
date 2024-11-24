@@ -53,4 +53,7 @@ public class ElementMethods {
         select.selectByVisibleText(text);
     }
 
+    public String getSelectedOption(WebElement yearsOfExperienceElement) {
+        return "";
+    }
 }
