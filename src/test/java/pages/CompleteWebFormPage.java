@@ -1,12 +1,13 @@
 package pages;
 
 import modelObject.CompleteWebFormModel;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
+import org.testng.Assert;
 
 import java.time.Duration;
 
@@ -45,21 +46,48 @@ public class CompleteWebFormPage extends BasePage {
 
         elementMethods.fillElement(firstNameElement, testData.getFirstName());
         loggerUtility.infoLog("The user fills the First name field with " + testData.getFirstName() + " value");
+        Assert.assertEquals(firstNameElement.getAttribute("value"),testData.getFirstName(),"First name value is not correct");
+
         elementMethods.fillElement(lastNameElement, testData.getLastName());
         loggerUtility.infoLog("The user fills the Last name field with " + testData.getLastName() + " value");
+        Assert.assertEquals(lastNameElement.getAttribute("value"),testData.getLastName(),"Last name value is not correct");
+
         elementMethods.fillElement(jobTitleElement, testData.getJobTitle());
         loggerUtility.infoLog("The user fills the Job title field with " + testData.getJobTitle() + " value");
+        Assert.assertEquals(jobTitleElement.getAttribute("value"),testData.getJobTitle(),"Job tile value is not correct");
+
         selectEducationLevel(testData.getEducationLevel());
         selectSex(testData.getSex());
         elementMethods.selectDropdownElement(yearsOfExperienceElement, testData.getYearsOfExperience());
         loggerUtility.infoLog("The user selects his Years of experience from the option list " + testData.getYearsOfExperience() + " value");
+        String selectedExperience = elementMethods.getSelectedDropdownOption(yearsOfExperienceElement);
+        Assert.assertEquals(selectedExperience, testData.getYearsOfExperience(),
+                "Years of experience value is not correct!");
 
         // Send the date value directly to the date input field in the format MM/DD/YYYY
         String fullDate = testData.getMonth() + "/" + testData.getDay() + "/" + testData.getYear();
         elementMethods.fillElement(dateElement, fullDate); // Input the date in the field
+
+        Assert.assertEquals(dateElement.getAttribute("value"), fullDate,
+                "Date value is not correct!");
+
         loggerUtility.infoLog("The user selects the Date from the option list");
+        elementMethods.waitVisibleElement(submitElement);
         elementMethods.clickElement(submitElement);
         loggerUtility.infoLog("The user Submits the form ");
+
+        // Wait for the URL to change to confirmation page
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains("/thanks"));
+        loggerUtility.infoLog("Redirection to the confirmation page was successful.");
+
+        // Wait for the confirmation message to be visible
+        WebElement confirmationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()='Thanks for submitting your form']")));
+
+        // Validate the confirmation message
+        Assert.assertEquals(confirmationMessage.getText(), "Thanks for submitting your form",
+                "The confirmation message is incorrect or not displayed.");
+        loggerUtility.infoLog("The confirmation message validated successfully.");
 
     }
 
@@ -68,18 +96,22 @@ public class CompleteWebFormPage extends BasePage {
         switch (educationLevel.toLowerCase()) {
             case "high school":
                 elementMethods.clickElement(highSchoolElement);
+                Assert.assertTrue(highSchoolElement.isSelected(),"High School radio button is not selected!");
                 loggerUtility.infoLog("Selected High School.");
                 break;
             case "college":
                 elementMethods.clickElement(collegeElement);
+                Assert.assertTrue(collegeElement.isSelected(),"Collage radio button is not selected!");
                 loggerUtility.infoLog("Selected Collage.");
                 break;
             case "grad school":
                 elementMethods.clickElement(gradSchoolElement);
+                Assert.assertTrue(gradSchoolElement.isSelected(),"Grad School radio button is not selected!");
                 loggerUtility.infoLog("Selected Grad School.");
                 break;
             default:
                 loggerUtility.errorLog("Invalid education level: " + educationLevel);
+                Assert.fail("Invalid education level selected!");
         }
     }
 
@@ -88,81 +120,23 @@ public class CompleteWebFormPage extends BasePage {
         switch (sex.toLowerCase()){
             case "male":
                 elementMethods.clickElement(maleElement);
+                Assert.assertTrue(maleElement.isSelected(),"Male checkbox is not selected!");
                 loggerUtility.infoLog("Selected Male.");
                 break;
             case "female":
                 elementMethods.clickElement(femaleElement);
+                Assert.assertTrue(femaleElement.isSelected(),"Female checkbox is not selected!");
                 loggerUtility.infoLog("Selected Female.");
                 break;
             case "prefer not to say":
                 elementMethods.clickElement(preferNotToSayElement);
+                Assert.assertTrue(preferNotToSayElement.isSelected(),"Prefer not to say checkbox is not selected!");
                 loggerUtility.infoLog("Selected Prefer Not to Say.");
                 break;
             default:
                 loggerUtility.errorLog("Invalid sex option: " + sex);
+                Assert.fail("Invalid sex option selected!");
         }
-    }
-
-    public void validateFilledFields(CompleteWebFormModel testData){
-        SoftAssert softAssert = new SoftAssert();
-
-        // Validate the text fields
-        softAssert.assertEquals(firstNameElement.getAttribute("value"), testData.getFirstName(), "First name field value does not match");
-        loggerUtility.infoLog("Validated the First Name field.");
-
-        softAssert.assertEquals(lastNameElement.getAttribute("value"), testData.getLastName(), "Last name field value does not match");
-        loggerUtility.infoLog("Validated the Last Name field.");
-
-        softAssert.assertEquals(jobTitleElement.getAttribute("value"), testData.getJobTitle(), "Job title field value does not match");
-        loggerUtility.infoLog("Validated the Job Title field.");
-
-        // Validate the selected education level (radio buttons)
-        switch (testData.getEducationLevel().toLowerCase()) {
-            case "high school":
-                softAssert.assertTrue(highSchoolElement.isSelected(), "High School should be selected.");
-                break;
-            case "college":
-                softAssert.assertTrue(collegeElement.isSelected(), "College should be selected.");
-                break;
-            case "grad school":
-                softAssert.assertTrue(gradSchoolElement.isSelected(), "Grad School should be selected.");
-                break;
-            default:
-                loggerUtility.errorLog("Invalid education level specified in test data: " + testData.getEducationLevel());
-        }
-        loggerUtility.infoLog("Validated the Education Level field.");
-
-        // Validate the selected gender (checkboxes)
-        switch (testData.getSex().toLowerCase()) {
-            case "male":
-                softAssert.assertTrue(maleElement.isSelected(), "Male should be selected.");
-                break;
-            case "female":
-                softAssert.assertTrue(femaleElement.isSelected(), "Female should be selected.");
-                break;
-            case "prefer not to say":
-                softAssert.assertTrue(preferNotToSayElement.isSelected(), "Prefer Not to Say should be selected.");
-                break;
-            default:
-                loggerUtility.errorLog("Invalid sex option specified in test data: " + testData.getSex());
-        }
-        loggerUtility.infoLog("Validated the Sex field.");
-
-        // Validate the dropdown selection for Years of Experience
-        String selectedExperience = elementMethods.getSelectedOption(yearsOfExperienceElement);
-        softAssert.assertEquals(selectedExperience, testData.getYearsOfExperience(), "Years of Experience does not match.");
-        loggerUtility.infoLog("Validated the Years of Experience field.");
-
-        // Validate the date field
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(dateElement));
-        String expectedDate = testData.getMonth() + "/" + testData.getDay() + "/" + testData.getYear();
-        softAssert.assertEquals(dateElement.getAttribute("value"), expectedDate, "Date field value does not match.");
-        loggerUtility.infoLog("Validated the Date field.");
-
-        // Finalize all assertions
-        softAssert.assertAll();
-
     }
 }
 

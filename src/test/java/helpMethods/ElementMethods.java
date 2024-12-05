@@ -53,7 +53,8 @@ public class ElementMethods {
         select.selectByVisibleText(text);
     }
 
-    public String getSelectedOption(WebElement yearsOfExperienceElement) {
-        return "";
+    public String getSelectedDropdownOption(WebElement dropdown) {
+        Select select = new Select(dropdown);
+        return select.getFirstSelectedOption().getText();
     }
 }
