@@ -1,19 +1,29 @@
 package sharedData;
 
+import BrowserService.ChromeService;
+import BrowserService.EdgeService;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-
-import java.time.Duration;
 
 public class SharedData {
 
     private WebDriver driver;
 
     public void setUpDriver(){
-        driver = new EdgeDriver();
-        driver.get("https://formy-project.herokuapp.com/");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        String browser = System.getProperty("browser");
+
+        switch (browser){
+            case "edge":
+                EdgeService edgeService = new EdgeService();
+                edgeService.openBrowser();
+                driver = edgeService.getDriver();
+                break;
+            case "chrome":
+                ChromeService chromeService = new ChromeService();
+                chromeService.openBrowser();
+                driver = chromeService.getDriver();
+                break;
+
+        }
     }
 
     public WebDriver getDriver() {
