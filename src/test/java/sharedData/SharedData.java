@@ -2,8 +2,10 @@ package sharedData;
 
 import BrowserService.ChromeService;
 import BrowserService.EdgeService;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 
+@Getter
 public class SharedData {
 
     private WebDriver driver;
@@ -24,10 +26,6 @@ public class SharedData {
                 break;
 
         }
-    }
-
-    public WebDriver getDriver() {
-        return driver;
     }
 
     public void quitDriver(){

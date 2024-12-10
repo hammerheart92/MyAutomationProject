@@ -1,5 +1,7 @@
 package tests;
 
+import configFiles.DataConfig;
+import loggerUtility.LoggerUtility;
 import modelObject.AutocompleteModel;
 import org.testng.annotations.Test;
 import pages.AutocompletePage;
@@ -12,18 +14,18 @@ public class AutocompleteTest extends Hooks {
     public void testMethod() {
 
         AutocompleteModel testData = new AutocompleteModel();
-        testData.populateObject("src/main/resources/inputData/AutocompleteResource.json");
+        testData.populateObject(DataConfig.AUTOCOMPLETE_DATA);
 
-        loggerUtility.infoLog("Navigating to HomePage and interacting with Autocomplete");
+        LoggerUtility.infoLog("Navigating to HomePage and interacting with Autocomplete");
         HomePage elementsPage = new HomePage(getDriver());
         elementsPage.clickAutocomplete();
 
-        loggerUtility.infoLog("Filling out Autocomplete with provided data");
+        LoggerUtility.infoLog("Filling out Autocomplete with provided data");
         AutocompletePage autocompletePage = new AutocompletePage(getDriver());
         autocompletePage.fillProcess(testData);
         autocompletePage.validateFilledFields(testData);
 
-        loggerUtility.infoLog("Test completed successfully, quitting the driver.");
+        LoggerUtility.infoLog("Test completed successfully, quitting the driver.");
         getDriver().quit();
     }
 }

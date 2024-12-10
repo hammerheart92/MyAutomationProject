@@ -2,6 +2,7 @@ package pages;
 
 import helpMethods.AlertMethods;
 import helpMethods.TabMethods;
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,25 +19,25 @@ public class SwitchWindowPage extends BasePage {
     private WebElement openAlert;
 
     public void dealWindowProcess(){
-        loggerUtility.infoLog("The user opens a new Window tab");
+        LoggerUtility.infoLog("The user opens a new Window tab");
         elementMethods.clickElement(openNewTab);
         TabMethods tabMethods = new TabMethods(driver);
 
-        loggerUtility.infoLog("Switching to the new tab...");
+        LoggerUtility.infoLog("Switching to the new tab...");
         tabMethods.switchSpecificTab(1);
 
-        loggerUtility.infoLog("Closing the new tab...");
+        LoggerUtility.infoLog("Closing the new tab...");
         tabMethods.closeCurrentTab();
 
-        loggerUtility.infoLog("Switching back to the original tab...");
+        LoggerUtility.infoLog("Switching back to the original tab...");
         tabMethods.switchSpecificTab(0);
     }
 
     public void dealAlertProcess(){
-        loggerUtility.infoLog("Triggering the alert popup.");
+        LoggerUtility.infoLog("Triggering the alert popup.");
         elementMethods.clickElement(openAlert);
         AlertMethods alertMethods = new AlertMethods(driver);
         alertMethods.acceptAlert();
-        loggerUtility.infoLog("Alert popup handled successfully.");
+        LoggerUtility.infoLog("Alert popup handled successfully.");
     }
 }

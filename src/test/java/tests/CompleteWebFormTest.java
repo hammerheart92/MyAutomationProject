@@ -1,5 +1,7 @@
 package tests;
 
+import configFiles.DataConfig;
+import loggerUtility.LoggerUtility;
 import modelObject.CompleteWebFormModel;
 import org.testng.annotations.Test;
 import pages.CompleteWebFormPage;
@@ -12,20 +14,19 @@ public class CompleteWebFormTest extends Hooks {
     public void testMethod() {
 
         CompleteWebFormModel testData = new CompleteWebFormModel();
-        testData.populateObject("src/main/resources/inputData/CompleteWebForm.json");
+        testData.populateObject(DataConfig.COMPLETEWEBFORM_DATA);
 
-        loggerUtility.infoLog("Starting CompleteWebFormTest");
+        LoggerUtility.infoLog("Starting CompleteWebFormTest");
 
-        loggerUtility.infoLog("Navigating to HomePage and interacting with Complete Web Form");
+        LoggerUtility.infoLog("Navigating to HomePage and interacting with Complete Web Form");
         HomePage elementsPage = new HomePage(getDriver());
         elementsPage.clickCompleteWebForm();
 
-        loggerUtility.infoLog("Filling out Complete Web Form with provided data");
+        LoggerUtility.infoLog("Filling out Complete Web Form with provided data");
         CompleteWebFormPage completeWebFormPage = new CompleteWebFormPage(getDriver());
         completeWebFormPage.clickCompleteWebForm(testData);
 
-        loggerUtility.infoLog("Test completed successfully, quitting the driver.");
+        LoggerUtility.infoLog("Test completed successfully, quitting the driver.");
         getDriver().quit();
     }
-
 }

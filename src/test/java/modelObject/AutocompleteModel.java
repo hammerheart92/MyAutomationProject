@@ -1,9 +1,14 @@
 package modelObject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
+
+@Getter
+@Setter
 
 public class AutocompleteModel {
 
@@ -30,61 +35,5 @@ public class AutocompleteModel {
             e.printStackTrace();
             throw new RuntimeException("Failed to populate AutocompleteModel from JSON file: " + jsonFilePath, e);
         }
-    }
-
-    public String getAddressValue() {
-        return addressValue;
-    }
-
-    public void setAddressValue(String addressValue) {
-        this.addressValue = addressValue;
-    }
-
-    public String getStreetValue() {
-        return streetValue;
-    }
-
-    public void setStreetValue(String streetValue) {
-        this.streetValue = streetValue;
-    }
-
-    public String getStreet2Value() {
-        return street2Value;
-    }
-
-    public void setStreet2Value(String street2Value) {
-        this.street2Value = street2Value;
-    }
-
-    public String getCityValue() {
-        return cityValue;
-    }
-
-    public void setCityValue(String cityValue) {
-        this.cityValue = cityValue;
-    }
-
-    public String getStateValue() {
-        return stateValue;
-    }
-
-    public void setStateValue(String stateValue) {
-        this.stateValue = stateValue;
-    }
-
-    public String getZipCodeValue() {
-        return zipCodeValue;
-    }
-
-    public void setZipCodeValue(String zipCodeValue) {
-        this.zipCodeValue = zipCodeValue;
-    }
-
-    public String getCountryValue() {
-        return countryValue;
-    }
-
-    public void setCountryValue(String countryValue) {
-        this.countryValue = countryValue;
     }
 }

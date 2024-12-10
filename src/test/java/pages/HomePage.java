@@ -1,5 +1,6 @@
 package pages;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,21 +22,21 @@ public class HomePage extends BasePage {
 
     public void clickAutocomplete() {
         elementMethods.clickElement(autocompleteMenu);
-        loggerUtility.infoLog("The user click on Autocomplete menu");
+        LoggerUtility.infoLog("The user click on Autocomplete menu");
     }
 
     public void clickCompleteWebForm() {
         elementMethods.clickElement(completeWebFormMenu);
-        loggerUtility.infoLog("The user click on Complete Web Form menu ");
+        LoggerUtility.infoLog("The user click on Complete Web Form menu ");
     }
 
     public void clickFileUpload(){
         elementMethods.clickElement(fileUploadMenu);
-        loggerUtility.infoLog("The user click on File Upload menu ");
+        LoggerUtility.infoLog("The user click on File Upload menu ");
     }
 
     public void  clickSwitchWindow(){
         elementMethods.clickElement(switchWindowMenu);
-        loggerUtility.infoLog("The user clicks on Switch Windows menu");
+        LoggerUtility.infoLog("The user clicks on Switch Windows menu");
     }
 }
