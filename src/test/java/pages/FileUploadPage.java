@@ -17,7 +17,7 @@ public class FileUploadPage extends BasePage{
 
     public void chooseFile(){
 
-        String filePath = "C:\\Users\\Denisa\\Desktop\\testFile.txt";
+        String filePath = System.getProperty("user.dir") + "/src/main/resources/testFile.txt";
         fileInput.sendKeys(filePath);
         loggerUtility.infoLog("The user selected a file to upload: " + filePath);
     }
