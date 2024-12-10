@@ -7,10 +7,18 @@ on:
         description: 'Choose browser: chrome, edge'
         required: true
         default: 'chrome'
+        type: choice
+        options:
+          - chrome
+          - edge
       suite:
         description: 'Choose suite: regressionSuite, smokeSuite'
         required: true
         default: 'smokeSuite'
+        type: choice
+        options:
+          - smokeSuite
+          - regressionSuite
 
 
 jobs:
