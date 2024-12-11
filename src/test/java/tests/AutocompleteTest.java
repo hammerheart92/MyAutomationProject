@@ -17,8 +17,8 @@ public class AutocompleteTest extends Hooks {
         testData.populateObject(DataConfig.AUTOCOMPLETE_DATA);
 
         LoggerUtility.infoLog("Navigating to HomePage and interacting with Autocomplete");
-        HomePage elementsPage = new HomePage(getDriver());
-        elementsPage.clickAutocomplete();
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickAutocomplete();
 
         LoggerUtility.infoLog("Filling out Autocomplete with provided data");
         AutocompletePage autocompletePage = new AutocompletePage(getDriver());

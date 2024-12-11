@@ -19,8 +19,8 @@ public class CompleteWebFormTest extends Hooks {
         LoggerUtility.infoLog("Starting CompleteWebFormTest");
 
         LoggerUtility.infoLog("Navigating to HomePage and interacting with Complete Web Form");
-        HomePage elementsPage = new HomePage(getDriver());
-        elementsPage.clickCompleteWebForm();
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickCompleteWebForm();
 
         LoggerUtility.infoLog("Filling out Complete Web Form with provided data");
         CompleteWebFormPage completeWebFormPage = new CompleteWebFormPage(getDriver());
